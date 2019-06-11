@@ -13,11 +13,11 @@ RUN apt-get update -qq \
   && apt-get install -y git \
   && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://dl.google.com/android/repository/tools_r25.2.5-linux.zip
+RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
 
-RUN unzip tools_r25.2.5-linux.zip -d /opt/android-sdk-linux
+RUN unzip sdk-tools-linux-4333796.zip -d /opt/android-sdk-linux
 
-RUN rm -rf tools_r25.2.5-linux.zip
+RUN rm -rf sdk-tools-linux-4333796.zip
 
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
