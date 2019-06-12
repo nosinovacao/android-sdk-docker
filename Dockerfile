@@ -13,11 +13,11 @@ RUN apt-get update -qq \
   && apt-get install -y git \
   && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+RUN wget https://dl.google.com/android/repository/tools_r25.2.5-linux.zip
 
-RUN unzip sdk-tools-linux-4333796.zip -d /opt/android-sdk-linux
+RUN unzip tools_r25.2.5-linux.zip -d /opt/android-sdk-linux
 
-RUN rm -rf sdk-tools-linux-4333796.zip
+RUN rm -rf tools_r25.2.5-linux.zip
 
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
@@ -27,12 +27,14 @@ ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 RUN echo y | android update sdk --no-ui --all --filter platform-tools | grep 'package installed'
 
 # SDKs
+RUN echo y | android update sdk --no-ui --all --filter android-29 | grep 'package installed'
 RUN echo y | android update sdk --no-ui --all --filter android-28 | grep 'package installed'
 RUN echo y | android update sdk --no-ui --all --filter android-27 | grep 'package installed'
 RUN echo y | android update sdk --no-ui --all --filter android-26 | grep 'package installed'
 
 
 # build tools
+RUN echo y | android update sdk --no-ui --all --filter build-tools-29.0.0 | grep 'package installed'
 RUN echo y | android update sdk --no-ui --all --filter build-tools-28.0.3 | grep 'package installed'
 RUN echo y | android update sdk --no-ui --all --filter build-tools-27.0.3 | grep 'package installed'
 RUN echo y | android update sdk --no-ui --all --filter build-tools-26.0.2 | grep 'package installed'
