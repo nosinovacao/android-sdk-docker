@@ -11,6 +11,7 @@ RUN apt-get update -qq \
   && apt-get install -y zip \
   && apt-get install -y unzip \
   && apt-get install -y git \
+  && apt-get install curl \
   && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://dl.google.com/android/repository/tools_r25.2.5-linux.zip
