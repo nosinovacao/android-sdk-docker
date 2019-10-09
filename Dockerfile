@@ -1,17 +1,17 @@
-FROM alpine:3.10.2
+FROM phusion/baseimage
 
 RUN cd /opt
 
 RUN mkdir android-sdk-linux && cd android-sdk-linux/
 
-RUN apt update -qq \
-  && apt install -y openjdk-8-jdk \
-  && apt install -y wget \
-  && apt install -y expect \
-  && apt install -y zip \
-  && apt install -y unzip \
-  && apt install -y git \
-  && apt install -y curl \
+RUN apt-get update -qq \
+  && apt-get install -y openjdk-8-jdk \
+  && apt-get install -y wget \
+  && apt-get install -y expect \
+  && apt-get install -y zip \
+  && apt-get install -y unzip \
+  && apt-get install -y git \
+  && apt-get install -y curl \
   && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://dl.google.com/android/repository/tools_r25.2.5-linux.zip
@@ -47,7 +47,7 @@ RUN mkdir "$ANDROID_HOME/licenses" || true
 RUN echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
 RUN echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
-RUN apt clean
+RUN apt-get clean
 
 RUN chown -R 1000:1000 $ANDROID_HOME
 
