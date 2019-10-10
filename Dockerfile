@@ -1,6 +1,6 @@
 FROM anapsix/alpine-java:8_jdk
 
-RUN cd /opt
+RUN mkdir opt cd /opt
 
 RUN mkdir android-sdk-linux && cd android-sdk-linux/
 
