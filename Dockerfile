@@ -4,16 +4,7 @@ RUN cd /opt
 
 RUN mkdir android-sdk-linux && cd android-sdk-linux/
 
-RUN apt-get update -qq \
-  && apt-get install -y openjdk-8-jdk \
-  && apt-get install -y wget \
-  && apt-get install -y expect \
-  && apt-get install -y zip \
-  && apt-get install -y unzip \
-  && apt-get install -y git \
-  && apt-get install -y curl \
-  && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update -qq \ && apt-get install -y openjdk-8-jdk wget expect zip unzip git curl \ && rm -rf /var/lib/apt/lists/*
 RUN wget https://dl.google.com/android/repository/tools_r25.2.5-linux.zip
 
 RUN unzip tools_r25.2.5-linux.zip -d /opt/android-sdk-linux
