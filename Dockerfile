@@ -1,49 +1,65 @@
 FROM anapsix/alpine-java:8_jdk
 
-RUN mkdir opt cd /opt
+ARG VCS_REF
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="e.g. https://github.com/microscaling/microscaling"
 
-RUN mkdir android-sdk-linux && cd android-sdk-linux/
+ENV LANG "en_US.UTF-8"
+ENV LANGUAGE "en_US.UTF-8"
+ENV LC_ALL "en_US.UTF-8"
+
+ENV ANDROID_HOME "/android-sdk"
+ENV ANDROID_COMPILE_SDK "28"
+ENV ANDROID_BUILD_TOOLS "28.0.3"
+ENV ANDROID_SDK_TOOLS "3859397"
+ENV PATH "$PATH:${ANDROID_HOME}/platform-tools"
 
 RUN apk update \
   openjdk-8-jdk \
+  git \
+  bash \
+  curl \
   wget \
-  expect \
   zip \
   unzip \
-  git \
-  curl \
+  expect \
+  ruby \
+  ruby-rdoc \
+  ruby-irb \
+  ruby-dev \
+  openssh \
+  g++ \
+  make \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-  
-RUN wget https://dl.google.com/android/repository/tools_r25.2.5-linux.zip
 
-RUN unzip tools_r25.2.5-linux.zip -d /opt/android-sdk-linux
+#ENV ANDROID_HOME /opt/android-sdk-linux
+#ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
-RUN rm -rf tools_r25.2.5-linux.zip
+#ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
-ENV ANDROID_HOME /opt/android-sdk-linux
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN apk --no-cache add ca-certificates wget
+RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-2.26-r0.apk
+RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-bin-2.26-r0.apk
+RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-i18n-2.26-r0.apk
 
-ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+RUN apk add glibc-2.26-r0.apk
+RUN apk add glibc-bin-2.26-r0.apk
+RUN apk add glibc-i18n-2.26-r0.apk
+RUN /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
 
-RUN echo y | android update sdk --no-ui --all --filter platform-tools | grep 'package installed'
+RUN gem install fastlane -NV
 
-# SDKs
-RUN echo y | android update sdk --no-ui --all --filter android-29 | grep 'package installed'
-RUN echo y | android update sdk --no-ui --all --filter android-28 | grep 'package installed'
+ADD https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip sdk-tools-linux.zip
 
+RUN unzip sdk-tools-linux.zip -d ${ANDROID_HOME} && \
+    rm sdk-tools-linux.zip && \
+    echo y | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
 
-# build tools
-RUN echo y | android update sdk --no-ui --all --filter build-tools-29.0.0 | grep 'package installed'
-RUN echo y | android update sdk --no-ui --all --filter build-tools-28.0.3 | grep 'package installed'
-
-RUN android list sdk --all
-
-# Accept the license agreements
-RUN mkdir "$ANDROID_HOME/licenses" || true
-RUN echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-RUN echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-
-RUN apk clean
+#firebase-tools setup
+ADD https://github.com/firebase/firebase-tools/releases/download/v7.3.1/firebase-tools-linux firebase-tools-linux
+RUN chmod +x firebase-tools-linux
+RUN ./firebase-tools-linux --open-sesame appdistribution 
 
 RUN chown -R 1000:1000 $ANDROID_HOME
 
