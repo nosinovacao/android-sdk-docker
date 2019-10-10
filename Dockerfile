@@ -12,7 +12,7 @@ RUN apk update \
   unzip \
   git \
   curl \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
   
 RUN wget https://dl.google.com/android/repository/tools_r25.2.5-linux.zip
 
@@ -43,7 +43,7 @@ RUN mkdir "$ANDROID_HOME/licenses" || true
 RUN echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
 RUN echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
-RUN apt-get clean
+RUN apk clean
 
 RUN chown -R 1000:1000 $ANDROID_HOME
 
