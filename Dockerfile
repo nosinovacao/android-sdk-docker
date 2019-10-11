@@ -21,8 +21,7 @@ ENV PATH "$PATH:${ANDROID_HOME}/platform-tools"
 
 RUN apk update \
   openjdk-8-jdk && \
-  apk add --no-cache \
-      openjdk-8-jdk \
+  apk add --no-cache \    
       git \
       bash \
       curl \
