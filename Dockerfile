@@ -16,7 +16,11 @@ ENV ANDROID_BUILD_TOOLS "28.0.3"
 ENV ANDROID_SDK_TOOLS "3859397"
 ENV PATH "$PATH:${ANDROID_HOME}/platform-tools"
 
-RUN apk update && \
+
+
+
+RUN apk update \
+  openjdk-8-jdk && \
   apk add --no-cache \
       openjdk-8-jdk \
       git \
