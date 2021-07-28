@@ -11,9 +11,9 @@ ENV LC_ALL "en_US.UTF-8"
 RUN mkdir android-sdk
 
 ENV ANDROID_HOME "/android-sdk"
-ENV ANDROID_COMPILE_SDK "29"
+ENV ANDROID_COMPILE_SDK "30"
 ENV ANDROID_BUILD_TOOLS "30.0.3"
-ENV ANDROID_SDK_TOOLS "7302050"
+ENV ANDROID_SDK_TOOLS "6858069_latest"
 ENV PATH "$PATH:${ANDROID_HOME}/platform-tools"
 
 
@@ -56,11 +56,11 @@ RUN /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
 
 
 
-ADD https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip sdk-tools-linux.zip
+ADD https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}.zip sdk-tools-linux.zip
 
 RUN unzip sdk-tools-linux.zip -d ${ANDROID_HOME} && \
     rm sdk-tools-linux.zip && \
-    echo y | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
+    echo y | ${ANDROID_HOME}/cmdline-tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
 
 #firebase-tools setup
 #ADD https://github.com/firebase/firebase-tools/releases/download/v7.3.1/firebase-tools-linux firebase-tools-linux
