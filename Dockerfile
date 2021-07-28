@@ -40,6 +40,7 @@ RUN apk update \
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+
 #ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
 RUN apk --no-cache add ca-certificates wget
