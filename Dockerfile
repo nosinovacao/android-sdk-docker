@@ -1,4 +1,4 @@
-FROM anapsix/alpine-java:8_jdk
+FROM alvrme/alpine-android:android-30-jdk8-v2021.07.14
 
 ARG VCS_REF
 LABEL org.label-schema.vcs-ref=$VCS_REF \
@@ -12,8 +12,8 @@ RUN mkdir android-sdk
 
 ENV ANDROID_HOME "/android-sdk"
 ENV ANDROID_COMPILE_SDK "29"
-ENV ANDROID_BUILD_TOOLS "29.0.2"
-ENV ANDROID_SDK_TOOLS "4333796"
+ENV ANDROID_BUILD_TOOLS "30.0.3"
+ENV ANDROID_SDK_TOOLS "7302050"
 ENV PATH "$PATH:${ANDROID_HOME}/platform-tools"
 
 
