@@ -56,11 +56,11 @@ RUN /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
 
 
 
-ADD https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}.zip sdk-tools-linux.zip
+#ADD https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}.zip sdk-tools-linux.zip
 
-RUN unzip sdk-tools-linux.zip -d ${ANDROID_HOME} && \
-    rm sdk-tools-linux.zip && \
-    echo y | ${ANDROID_HOME}/cmdline-tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
+#RUN unzip sdk-tools-linux.zip -d ${ANDROID_HOME} && \
+#    rm sdk-tools-linux.zip && \
+#    echo y | ${ANDROID_HOME}/cmdline-tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
 
 #firebase-tools setup
 #ADD https://github.com/firebase/firebase-tools/releases/download/v7.3.1/firebase-tools-linux firebase-tools-linux
