@@ -1,4 +1,4 @@
-FROM anapsix/alpine-java:8_jdk
+FROM alvrme/alpine-android:android-30-jdk8-v2021.07.14
 
 ARG VCS_REF
 LABEL org.label-schema.vcs-ref=$VCS_REF \
@@ -8,13 +8,13 @@ ENV LANG "en_US.UTF-8"
 ENV LANGUAGE "en_US.UTF-8"
 ENV LC_ALL "en_US.UTF-8"
 
-RUN mkdir android-sdk
+#RUN mkdir android-sdk
 
-ENV ANDROID_HOME "/android-sdk"
-ENV ANDROID_COMPILE_SDK "29"
-ENV ANDROID_BUILD_TOOLS "29.0.2"
-ENV ANDROID_SDK_TOOLS "4333796"
-ENV PATH "$PATH:${ANDROID_HOME}/platform-tools"
+#ENV ANDROID_HOME "/android-sdk"
+#ENV ANDROID_COMPILE_SDK "29"
+#ENV ANDROID_BUILD_TOOLS "29.0.2"
+#ENV ANDROID_SDK_TOOLS "4333796"
+#ENV PATH "$PATH:${ANDROID_HOME}/platform-tools"
 
 
 
@@ -22,20 +22,20 @@ ENV PATH "$PATH:${ANDROID_HOME}/platform-tools"
 RUN apk update \
   openjdk-8-jdk && \
   apk add --no-cache \    
-      git \
-      bash \
+#      git \
+#      bash \
       curl \
-      wget \
-      zip \
-      unzip \
-      expect \
-      ruby \
-      ruby-rdoc \
-      ruby-irb \
-      ruby-dev \
-      openssh \
-      g++ \
-      make \
+#      wget \
+#      zip \
+#      unzip \
+#      expect \
+#      ruby \
+#      ruby-rdoc \
+#      ruby-irb \
+#      ruby-dev \
+#      openssh \
+#      g++ \
+#      make \
       && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
@@ -43,24 +43,24 @@ RUN apk update \
 
 #ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
-RUN apk --no-cache add ca-certificates wget
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-2.26-r0.apk
-RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-bin-2.26-r0.apk
-RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-i18n-2.26-r0.apk
+#RUN apk --no-cache add ca-certificates wget
+#RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+#RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-2.26-r0.apk
+#RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-bin-2.26-r0.apk
+#RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-i18n-2.26-r0.apk
 
-RUN apk add glibc-2.26-r0.apk
-RUN apk add glibc-bin-2.26-r0.apk
-RUN apk add glibc-i18n-2.26-r0.apk
-RUN /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
+#RUN apk add glibc-2.26-r0.apk
+#RUN apk add glibc-bin-2.26-r0.apk
+#RUN apk add glibc-i18n-2.26-r0.apk
+#RUN /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
 
 
 
-ADD https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip sdk-tools-linux.zip
+#ADD https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip sdk-tools-linux.zip
 
-RUN unzip sdk-tools-linux.zip -d ${ANDROID_HOME} && \
-    rm sdk-tools-linux.zip && \
-    echo y | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
+#RUN unzip sdk-tools-linux.zip -d ${ANDROID_HOME} && \
+ #   rm sdk-tools-linux.zip && \
+ #   echo y | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
 
 #firebase-tools setup
 #ADD https://github.com/firebase/firebase-tools/releases/download/v7.3.1/firebase-tools-linux firebase-tools-linux
