@@ -1,4 +1,4 @@
-FROM alvrme/alpine-android:android-30-jdk11-v2021.10.27
+FROM alvrme/alpine-android:android-31-jdk11-v2021.10.27
 ARG VCS_REF
 LABEL org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.vcs-url="e.g. https://github.com/microscaling/microscaling"
